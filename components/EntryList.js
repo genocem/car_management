@@ -1,9 +1,15 @@
-import { StyleSheet, ScrollView, View, TouchableOpacity, Text } from 'react-native';
-import Entry from './Entry';
+import { StyleSheet, ScrollView, View, Text } from 'react-native';
+import * as data from './Database';
+import React, { useEffect, useState } from 'react';
+
 export default function EntryList() {
+    const [entries, setEntries] = useState([]);
+    
+    useEffect(() => {data.getVoitures(setEntries);}, []); 
+    
     return (
         <ScrollView>
-            <Entry />
+            {entries}
         </ScrollView>
     );
 }
@@ -11,7 +17,5 @@ const styles = StyleSheet.create({
     EntryList: {
         backgroundColor: '#fff',
         flexDirection: 'column',
-        
     },
-
 });

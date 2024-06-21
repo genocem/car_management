@@ -1,30 +1,30 @@
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 
-export default function Entry(name,matricule,kilometrage) {
+export default function Entry({ name, matricule, kilometrage }) {
     return (
         <View>
             <TouchableOpacity style={styles.Entry}>
-                <h3 style={styles.name} >Entry 1</h3>
+                {/* React Native does not have an <h3> component. Use <Text> with styling instead. */}
                 <View style={styles.listItem}>
-                    <Text>Entry 1 description</Text>
-                    <Text>Entry 1 description 2</Text>
+                    <Text style={styles.name}>{name}</Text>
+                    <Text>{matricule}</Text>
+                    <Text>{kilometrage}</Text>
                 </View>
             </TouchableOpacity>
         </View>
     );
 }
+
 const styles = StyleSheet.create({
     Entry: {
         backgroundColor: '#fff',
         flexDirection: 'column',
         borderRadius: 10,
         padding: 10,
-        
     },
     name: {
         fontSize: 20,
         fontWeight: 'bold',
-        
     },
     listItem: {
         flexDirection: 'column',

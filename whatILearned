@@ -1,0 +1,4 @@
++i couldnt open the database because it is made for android
+ 
++before using async and you need to use a db that is async you do (await db) or you 
+just get function undefined error
