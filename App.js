@@ -1,49 +1,19 @@
-import { useState } from 'react'; 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import EntryList from './components/EntryList';
-import Button from './components/Button';
-import * as NavigationBar from 'expo-navigation-bar';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+import HomeScreen from './screens/HomeScreen';
+import AddCar from './screens/AddCar';
 
+const Stack = createStackNavigator();
 
 export default function App() {
-  // const [selectedImage, setSelectedImage] = useState(null);
-
-  
   return (
-    <View style={styles.container}>
-      <View style={styles.top}>
-        
-      </View>
-      <View style={styles.ListContainer}>
-        <EntryList />
-      </View>
-
-      <View style={styles.footerContainer} >
-        <Button label="Choose a photo" theme={'primary'} />
-        <Button label="Use this photo"/>
-      </View>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="AddCar" component={AddCar} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex : 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
-    justifyContent: 'center',
-    
-  },
-  ListContainer: {
-    flex: 1,
-    paddingTop: 58,
-    width: '100%',
-  },
-  footerContainer: {
-    flex: 1 / 3,
-    alignItems: 'center',
-  },
-});
