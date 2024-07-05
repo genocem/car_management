@@ -14,8 +14,8 @@ export default function ManageCar({ navigation,route }) {
   
   
   
-  const handlePress = useCallback(() => {
-    navigation.navigate('EditEntry', { matricule });
+  const handlePress = useCallback((Tname) => {
+    navigation.navigate('EditEntry', { matricule, screenTitle: Tname });
   });
 
 

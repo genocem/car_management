@@ -16,7 +16,8 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="AddCar" component={AddCar} />
         <Stack.Screen name="ManageCar" component={ManageCar} />
-        <Stack.Screen name="EditEntry" component={EditEntry} />
+        <Stack.Screen name="EditEntry" component={EditEntry} 
+        options={({ route }) => ({ title: route.params?.screenTitle || 'Default Title' })} />
       </Stack.Navigator>
     </NavigationContainer>
   );
