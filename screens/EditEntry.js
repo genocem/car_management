@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation }) {
       toggleItemSelection(matricule);
     } else {
       // Handle single item press (e.g., navigate to detail view)
-      navigation.navigate('ManageCar', { matricule });
+    //   navigation.navigate('ManageCar', { matricule });
     }
   }, [selectedItems, toggleItemSelection]);
 
@@ -47,17 +47,17 @@ export default function HomeScreen({ navigation }) {
         </View>
       )}
 
-      <View style={styles.ListContainer}>
+      {/* <View style={styles.ListContainer}>
         <EntryList selectedItems={selectedItems} 
         toggleItemSelection={toggleItemSelection}
         handlePress={handlePress}
         refreshKey={refreshKey}
           />
-      </View>
+      </View> */}
 
-      <View style={styles.footerContainer} >
-        <Button title="ajouter une nouvelle voiture" onPress={() => navigation.navigate('AddCar')} />
-      </View>
+      {/* <View style={styles.footerContainer} >
+        <Button title="addo za new page" onPress={() => navigation.navigate('AddCar')} />
+      </View> */}
 
       <StatusBar style="auto" />
     </View>
