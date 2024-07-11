@@ -1,6 +1,6 @@
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 
-export default function Entry({ name, matricule, kilometrage, isSelected, onLongPress, onPress }) {
+export default function CarEntry({ name, matricule, kilometrage, isSelected, onLongPress, onPress }) {
     return (
         <View style={[styles.Entry, isSelected && styles.selectedEntry]}>
             <TouchableOpacity 

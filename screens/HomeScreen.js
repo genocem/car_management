@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import EntryList from '../components/CarEntryList';
+import CarEntryList from '../components/CarEntryList';
 import Button from '../components/Button';
 import React, { useState, useCallback } from 'react';
 import * as data from '../components/Database';
@@ -48,7 +48,7 @@ export default function HomeScreen({ navigation }) {
       )}
 
       <View style={styles.ListContainer}>
-        <EntryList selectedItems={selectedItems} 
+        <CarEntryList selectedItems={selectedItems} 
         toggleItemSelection={toggleItemSelection}
         handlePress={handlePress}
         refreshKey={refreshKey}

@@ -1,11 +1,10 @@
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 
-export default function TableEntry({ name, isSelected, onPress, onLongPress }) {
+export default function DbEntry({ name, onPress }) {
     return (
-        <View style={[styles.Entry, isSelected && styles.selectedEntry]}>
-            <TouchableOpacity 
-                onPress={onPress}
-                onLongPress={onLongPress}>
+        <View style={styles.Entry}>
+            <TouchableOpacity onPress={onPress}>
+                {/* React Native does not have an <h?> component. Use <Text> with styling instead. */}
                 <View style={styles.listItem}>
                     <Text style={styles.name}>{name}</Text>
                 </View>
@@ -20,9 +19,6 @@ const styles = StyleSheet.create({
         padding: 6,
         backgroundColor: 'white',
         borderRadius: 10,
-    },
-    selectedEntry: {
-        backgroundColor: 'lightblue',
     },
     listItem: {
         flexDirection: 'column',

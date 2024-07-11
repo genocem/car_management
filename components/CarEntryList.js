@@ -2,8 +2,7 @@ import { StyleSheet, FlatList, View } from 'react-native';
 import * as data from './Database';
 import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import Entry from './Entry';
-
+import CarEntry from './CarEntry';
 
 export default function CarEntryList({ selectedItems, toggleItemSelection, handlePress, refreshKey }) {
   const [entries, setEntries] = useState([]);
@@ -13,8 +12,13 @@ export default function CarEntryList({ selectedItems, toggleItemSelection, handl
       data.getVoitures(setEntries);
     }, [refreshKey])
   );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     data.getColumns();
+  //   }, [])
+  // );
   const renderItem = useCallback(({ item }) => (
-    <Entry
+    <CarEntry
       name={item.nomProprietere}
       matricule={item.matricule}
       kilometrage={item.kilometrageTotale}
