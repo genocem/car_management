@@ -6,7 +6,6 @@ export default function CarEntry({ name, matricule, kilometrage, isSelected, onL
             <TouchableOpacity 
                 onPress={onPress}
                 onLongPress={onLongPress}>
-                {/* React Native does not have an <h3> component. Use <Text> with styling instead. */}
                 <View style={styles.listItem}>
                     <Text style={styles.name}>{name}</Text>
                     <Text>{matricule}</Text>

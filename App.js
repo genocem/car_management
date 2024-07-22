@@ -6,7 +6,6 @@ import HomeScreen from './screens/S1/HomeScreen';
 import AddCar from './screens/S1/AddCar';
 import ManageCar from './screens/S2/ManageCar';
 import ManageTable from './screens/S3/ManageTable';
-import AddTableEntry from './screens/AddTableEntry';
 import AddAssurance from './screens/S3/AddAssurance';
 import AddEntretienKilometre from './screens/S3/AddEntretienKilometre';
 import AddEntretienDate from './screens/S3/AddEntretienDate';
@@ -24,7 +23,6 @@ export default function App() {
         <Stack.Screen name="ManageCar" component={ManageCar} />
         <Stack.Screen name="ManageTable" component={ManageTable} 
         options={({ route }) => ({ title: route.params?.screenTitle || 'Default Title' })} />
-        <Stack.Screen name="AddTableEntry" component={AddTableEntry}/>
         <Stack.Screen name="AddAssurance" component={AddAssurance} />
         <Stack.Screen name="AddEntretienKilometre" component={AddEntretienKilometre} />
         <Stack.Screen name="AddEntretienDate" component={AddEntretienDate} />

@@ -1,5 +1,3 @@
-import React from 'react';
-import Entry from './CarEntry';
 import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabaseAsync('carDB');

@@ -15,7 +15,7 @@ export default function AddAssurance({ navigation, route }) {
   useEffect(() => {
     // Set the current date in YYYY-MM-DD format
     const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0];
+    const formattedDate = today.toLocaleString();
     setDateAssurance(formattedDate);
   }, []);
 
