@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import React, { useState, useCallback } from 'react';
 
-import Button from '../components/Button';
-import TableEntryList from '../components/TableEntryList';
-import * as data from '../components/Database';
+import Button from '../../components/Button';
+import TableEntryList from '../../components/TableS3/TableEntryList';
+import * as data from '../../components/Database';
 
 
 export default function ManageTable({ navigation, route }) {

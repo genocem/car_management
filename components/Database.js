@@ -56,7 +56,7 @@ export const getTable = async (setEntries, Tname, matricule) => {
     try {
         for await (const row of (await db).getEachAsync('SELECT * FROM ' + Tname + ' WHERE matricule = ?', [matricule])) {
 
-            if (Tname === 'consommationGazoile') {
+            if (Tname === 'consommationGazoile' || Tname === 'kilometrage ') {
                 fetchedEntries.push({
                     id: row.id,
                     name: row.date,
@@ -141,7 +141,14 @@ export const AddConsommationGazoile = async (quantiteCarburant, date, kilometrag
 export const script = async () => {
     try {
         (await db).execAsync(`
-            ALTER TABLE entretienKilometre DROP COLUMN dateEstimer;
+            CREATE TABLE kilometrage (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    matricule TEXT NOT NULL,
+    date TEXT NOT NULL,
+    kilometrageNew INTEGER NOT NULL,
+    kilometrageOld INTEGER NOT NULL,
+    FOREIGN KEY (matricule) REFERENCES voiture(matricule)
+);
         `);
     }
     catch (error) {

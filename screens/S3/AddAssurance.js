@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import Button from '../components/Button';
-import * as data from '../components/Database';
+import Button from '../../components/Button';
+import * as data from '../../components/Database';
 import { useNavigation } from '@react-navigation/native';
 
 export default function AddAssurance({ navigation, route }) {

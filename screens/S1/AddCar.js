@@ -1,11 +1,14 @@
 import { useState, useCallback } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import Button from '../components/Button';
-import * as data from '../components/Database';
+import Button from '../../components/Button';
+import * as data from '../../components/Database';
 import { useNavigation } from '@react-navigation/native';
 
 export default function AddCar() {
   const [name, setName] = useState('');
+  const [matricule, setMatricule] = useState('');
+  const [kilometrage, setKilometrage] = useState('');
+  const navigation = useNavigation();
   const setSubmission = useCallback(() => {
     if (name === '' || matricule === '' || kilometrage === '') {
       alert('Please fill in all fields');

@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import Button from '../components/Button';
-import * as data from '../components/Database';
+import Button from '../../components/Button';
+import * as data from '../../components/Database';
 
 
 export default function AddConsommationGazoile({ navigation, route }) {

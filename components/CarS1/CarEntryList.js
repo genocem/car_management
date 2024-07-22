@@ -1,5 +1,5 @@
 import { StyleSheet, FlatList, View } from 'react-native';
-import * as data from './Database';
+import * as data from '../Database';
 import React, { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import CarEntry from './CarEntry';

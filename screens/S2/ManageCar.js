@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import React, { useState, useCallback } from 'react';
 
-import DbEntryList from '../components/DbEntryList';
+import DbEntryList from '../../components/DbS2/DbEntryList';
 
 
 export default function ManageCar({ navigation,route }) {

@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import CarEntryList from '../components/CarEntryList';
-import Button from '../components/Button';
+import CarEntryList from '../../components/CarS1/CarEntryList';
+import Button from '../../components/Button';
 import React, { useState, useCallback } from 'react';
-import * as data from '../components/Database';
+import * as data from '../../components/Database';
 
 export default function HomeScreen({ navigation }) {
   const [selectedItems, setSelectedItems] = useState([]);

@@ -1,30 +1,39 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import Button from '../components/Button';
-import * as data from '../components/Database';
+import Button from '../../components/Button';
+import * as data from '../../components/Database';
 
-export default function AddEntretienDate({ navigation, route }) {
+export default function AddEntretienKilometre({ navigation, route }) {
   const { matricule } = route.params;
   const [name, setName] = useState('');
-  const [date, setDate] = useState('');
+  const [kilometrageOld, setKilometrageOld] = useState('');
+  const [limiteKilometre, setLimiteKilometre] = useState('');
   // const navigation = useNavigation();
 
+
+useEffect(() => {
+  data.getKillometrage(matricule, setKilometrageOld);
+}, []);
+
+
   const setSubmission = useCallback(() => {
-    if (name === '' || date === '') {
+    if (name === '' || limiteKilometre === '' ) {
       alert('Please fill in all fields');
+      return;
+    } else if (isNaN(kilometrageOld) || isNaN(limiteKilometre)) {
+      alert('Kilometrage Old and Limite Kilometre have to be numbers');
       return;
     } else {
       try {
-        data.AddEntretienDate(matricule, name, date);
-        alert('Entretien Date added successfully');
+        data.AddEntretienKilometre(matricule, name, kilometrageOld, limiteKilometre);
+        alert('Entretien Kilometre added successfully');
         navigation.goBack();
-
       } catch (error) {
-        console.error('Failed to add entretien date:', error);
-        alert('Failed to add entretien date');
+        console.error('Failed to add entretien kilometre:', error);
+        alert('Failed to add entretien kilometre');
       }
     }
-  }, [name, matricule, date, navigation]);
+  }, [name, matricule, limiteKilometre, navigation]);
 
   return (
     <View style={styles.form}>
@@ -37,11 +46,12 @@ export default function AddEntretienDate({ navigation, route }) {
         />
       </View>
       <View style={styles.formElem}>
-        <Text style={styles.text}>Date</Text>
+        <Text style={styles.text}>Limite Kilometre</Text>
         <TextInput
           style={styles.textIn}
-          placeholder='Date'
-          onChangeText={setDate}
+          placeholder='Limite Kilometre'
+          keyboardType='numeric'
+          onChangeText={setLimiteKilometre}
         />
       </View>
       <Button title="Save" onPress={setSubmission} />

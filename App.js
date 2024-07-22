@@ -2,15 +2,15 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HomeScreen from './screens/HomeScreen';
-import AddCar from './screens/AddCar';
-import ManageCar from './screens/ManageCar';
-import ManageTable from './screens/ManageTable';
+import HomeScreen from './screens/S1/HomeScreen';
+import AddCar from './screens/S1/AddCar';
+import ManageCar from './screens/S2/ManageCar';
+import ManageTable from './screens/S3/ManageTable';
 import AddTableEntry from './screens/AddTableEntry';
-import AddAssurance from './screens/AddAssurance';
-import AddEntretienKilometre from './screens/AddEntretienKilometre';
-import AddEntretienDate from './screens/AddEntretienDate';
-import AddConsommationGazoile from './screens/AddConsommationGazoile';
+import AddAssurance from './screens/S3/AddAssurance';
+import AddEntretienKilometre from './screens/S3/AddEntretienKilometre';
+import AddEntretienDate from './screens/S3/AddEntretienDate';
+import AddConsommationGazoile from './screens/S3/AddConsommationGazoile';
 
 
 const Stack = createStackNavigator();

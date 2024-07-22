@@ -1,39 +1,30 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import Button from '../components/Button';
-import * as data from '../components/Database';
+import Button from '../../components/Button';
+import * as data from '../../components/Database';
 
-export default function AddEntretienKilometre({ navigation, route }) {
+export default function AddEntretienDate({ navigation, route }) {
   const { matricule } = route.params;
   const [name, setName] = useState('');
-  const [kilometrageOld, setKilometrageOld] = useState('');
-  const [limiteKilometre, setLimiteKilometre] = useState('');
+  const [date, setDate] = useState('');
   // const navigation = useNavigation();
 
-
-useEffect(() => {
-  data.getKillometrage(matricule, setKilometrageOld);
-}, []);
-
-
   const setSubmission = useCallback(() => {
-    if (name === '' || limiteKilometre === '' ) {
+    if (name === '' || date === '') {
       alert('Please fill in all fields');
-      return;
-    } else if (isNaN(kilometrageOld) || isNaN(limiteKilometre)) {
-      alert('Kilometrage Old and Limite Kilometre have to be numbers');
       return;
     } else {
       try {
-        data.AddEntretienKilometre(matricule, name, kilometrageOld, limiteKilometre);
-        alert('Entretien Kilometre added successfully');
+        data.AddEntretienDate(matricule, name, date);
+        alert('Entretien Date added successfully');
         navigation.goBack();
+
       } catch (error) {
-        console.error('Failed to add entretien kilometre:', error);
-        alert('Failed to add entretien kilometre');
+        console.error('Failed to add entretien date:', error);
+        alert('Failed to add entretien date');
       }
     }
-  }, [name, matricule, limiteKilometre, navigation]);
+  }, [name, matricule, date, navigation]);
 
   return (
     <View style={styles.form}>
@@ -46,12 +37,11 @@ useEffect(() => {
         />
       </View>
       <View style={styles.formElem}>
-        <Text style={styles.text}>Limite Kilometre</Text>
+        <Text style={styles.text}>Date</Text>
         <TextInput
           style={styles.textIn}
-          placeholder='Limite Kilometre'
-          keyboardType='numeric'
-          onChangeText={setLimiteKilometre}
+          placeholder='Date'
+          onChangeText={setDate}
         />
       </View>
       <Button title="Save" onPress={setSubmission} />
