@@ -31,7 +31,7 @@ export const AddCarDB = async (nomProprietere, matricule, kilometrageTotale) => 
 // here the function that will delete the entry based on the type of the entry
 export const deleteEntry = async (matricule, table) => {
     try {
-        (await db).runAsync('DELETE FROM ? WHERE matricule = ?', [table, matricule]);
+        (await db).runAsync('DELETE FROM ' + table + ' WHERE matricule = ? ' , [matricule]);
     } catch (error) {
         console.error("Failed to delete entry:", error);
     }
@@ -78,7 +78,7 @@ export const getTable = async (setEntries, Tname, matricule) => {
 
 export const deleteTableEntry = async (Tname, id) => {
     try {
-        (await db).runAsync('DELETE FROM ? WHERE id = ?', [Tname, id]);
+        (await db).runAsync('DELETE FROM ' + Tname + ' WHERE id = ? ', [id]);
     } catch (error) {
         console.error("Failed to delete entry:", error);
     }
