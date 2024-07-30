@@ -14,7 +14,7 @@ export default function CarEntryList({ selectedItems, toggleItemSelection, handl
   );
   // useFocusEffect(
   //   useCallback(() => {
-  //     data.getColumns();
+  //     data.script();
   //   }, [])
   // );
   const renderItem = useCallback(({ item }) => (

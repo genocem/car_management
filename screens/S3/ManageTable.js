@@ -65,7 +65,7 @@ export default function ManageTable({ navigation, route }) {
     Tname === 'entretienKilometre' ? "Ajouter un entretien kilométrique" :
     Tname === 'entretienDate' ? "Ajouter un entretien daté" :
     Tname === 'consommationGazoile' ? "Ajouter une consommation de gazoile" :
-    "Ajouter"
+    Tname === 'kilometrage' ? "Ajouter kilometrage" : "Ajouter"
   } onPress={() => {
           if (Tname === 'assurance') {
             navigation.navigate('AddAssurance', { matricule });
@@ -79,6 +79,9 @@ export default function ManageTable({ navigation, route }) {
           else if (Tname === 'consommationGazoile') {
             navigation.navigate('AddConsommationGazoile', { matricule });
 
+          }
+          else if (Tname === 'kilometrage') {
+            navigation.navigate('AddKilometrage', { matricule });
           }
         }} />
       </View>

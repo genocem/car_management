@@ -54,7 +54,8 @@ export const getTable = async (setEntries, Tname, matricule) => {
     try {
         for await (const row of (await db).getEachAsync('SELECT * FROM ' + Tname + ' WHERE matricule = ?', [matricule])) {
 
-            if (Tname === 'consommationGazoile' || Tname === 'kilometrage ') {
+            console.log(Tname)
+            if (Tname === 'consommationGazoile' || Tname === 'kilometrage') {
                 fetchedEntries.push({
                     id: row.id,
                     name: row.date,
@@ -109,6 +110,9 @@ export const AddEntretienDate = async (matricule, nom, date1, date2) => {
 export const AddConsommationGazoile = async (quantiteCarburant, date, kilometrage, matricule, prix) => {
     (await db).runAsync('INSERT INTO consommationGazoile (quantiteCarburant, date, kilometrage, matricule, prix) VALUES (?, ?, ?, ?, ?)', [quantiteCarburant, date, kilometrage, matricule, prix]);
 }
+export const AddKilometrage = async (matricule, date, kilometrageOld, kilometrage) =>{
+    (await db).runAsync('INSERT INTO kilometrage (matricule, date, kilometrageOld, kilometrageAjouter) VALUES (?, ?, ?, ?)', [matricule, date, kilometrageOld, kilometrage]);
+}
 
 // export const getTables = async (setEntries) => {
 //     const fetchedEntries = [];
@@ -143,10 +147,17 @@ export const script = async () => {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     matricule TEXT NOT NULL,
     date TEXT NOT NULL,
-    kilometrageNew INTEGER NOT NULL,
+    kilometrageAjouter INTEGER NOT NULL,
     kilometrageOld INTEGER NOT NULL,
     FOREIGN KEY (matricule) REFERENCES voiture(matricule)
 );
+CREATE TRIGGER IF NOT EXISTS addKilometre
+AFTER INSERT ON kilometrage
+BEGIN
+    UPDATE voiture
+    SET kilometrageTotale = kilometrageTotale + NEW.kilometrageAjouter
+    WHERE matricule = NEW.matricule;
+END;
         `);
     }
     catch (error) {
@@ -157,7 +168,7 @@ export const script = async () => {
 export const getColumns = async () => {
     const fetchedEntries = [];
     console.log('taburu  \n');
-    for await (const row of (await db).getEachAsync('PRAGMA table_info(entretienKilometre) ')) {
+    for await (const row of (await db).getEachAsync('PRAGMA table_info(kilometrage)')) {
         // SELECT name FROM sqlite_master WHERE type='table';
 
         fetchedEntries.push({

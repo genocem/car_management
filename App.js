@@ -10,6 +10,7 @@ import AddAssurance from './screens/S3/AddAssurance';
 import AddEntretienKilometre from './screens/S3/AddEntretienKilometre';
 import AddEntretienDate from './screens/S3/AddEntretienDate';
 import AddConsommationGazoile from './screens/S3/AddConsommationGazoile';
+import AddKilometrage from './screens/S3/AddKilometrage';
 
 
 const Stack = createStackNavigator();
@@ -27,6 +28,7 @@ export default function App() {
         <Stack.Screen name="AddEntretienKilometre" component={AddEntretienKilometre} />
         <Stack.Screen name="AddEntretienDate" component={AddEntretienDate} />
         <Stack.Screen name="AddConsommationGazoile" component={AddConsommationGazoile} />
+        <Stack.Screen name="AddKilometrage" component={AddKilometrage} />
           
       </Stack.Navigator>
     </NavigationContainer>

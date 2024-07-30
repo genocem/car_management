@@ -8,7 +8,8 @@ export default function DbEntryList({handlePress}) {
     {"name": "consommationGazoile", "shownName": "Consommation de Gazoile"}
     ,{"name": "assurance", "shownName": "Assurance"}
     ,{"name": "entretienDate", "shownName": "Entretien Date"}
-    ,{"name": "entretienKilometre", "shownName": "Entretien Kilometrique"}];
+    ,{"name": "entretienKilometre", "shownName": "Entretien Kilometrique"}
+  ,{"name": "kilometrage", "shownName": "Kilometrage"}];
 
   const renderItem = useCallback(({ item }) => (
     <DbEntry
