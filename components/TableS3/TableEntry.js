@@ -1,6 +1,6 @@
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 
-export default function TableEntry({ name, isSelected, onPress, onLongPress }) {
+export default function TableEntry({ name, isSelected, onPress, onLongPress, name2, name3 }) {
     return (
         <View style={[styles.Entry, isSelected && styles.selectedEntry]}>
             <TouchableOpacity 
@@ -8,6 +8,8 @@ export default function TableEntry({ name, isSelected, onPress, onLongPress }) {
                 onLongPress={onLongPress}>
                 <View style={styles.listItem}>
                     <Text style={styles.name}>{name}</Text>
+                    <Text>{name2}</Text>
+                    {name3 && <Text>{name3}</Text>}
                 </View>
             </TouchableOpacity>
         </View>

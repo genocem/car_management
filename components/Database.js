@@ -3,6 +3,9 @@ import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabaseAsync('carDB');
 
 // functions to manipulate the car table
+const currency= "DT"; 
+
+
 
 export const getVoitures = async (setEntries) => {
     const fetchedEntries = [];
@@ -37,16 +40,42 @@ export const getTable = async (setEntries, Tname, matricule) => {
         for await (const row of (await db).getEachAsync('SELECT * FROM ' + Tname + ' WHERE matricule = ?', [matricule])) {
 
             console.log(Tname)
-            if (Tname === 'consommationGazoile' || Tname === 'kilometrage') {
+            if (Tname === 'consommationGazoile') {
                 fetchedEntries.push({
                     id: row.id,
                     name: row.date,
+                    name2: "quantite carburant: " +row.quantiteCarburant,
+                    name3: "prix: " +row.prix+" "+currency,
+                });
+            }
+            else if (Tname === 'kilometrage') {
+                fetchedEntries.push({
+                    id: row.id,
+                    name: row.date,
+                    name2: "kilometrage ajouter: "+ row.kilometrageAjouter,
+                });
+            }
+            else if (Tname === 'entretienKilometre') {
+                fetchedEntries.push({
+                    id: row.id,
+                    name: row.nom,
+                    name2: "limiteKilometre: " + row.limiteKilometre,
+                });
+            }
+            else if (Tname === 'entretienDate') {
+                fetchedEntries.push({
+                    id: row.id,
+                    name: row.nom,
+                    name2: "Date ajout: " + row.date1,
+                    name3: "Date Fin: " + row.date2,
                 });
             }
             else {
                 fetchedEntries.push({
                     id: row.id,
                     name: row.nom,
+                    name2: "prix Assurance: " + row.prixAssurance + "" + currency,
+                    name3: "Date Fin: " + row.dateFin,
                 });
             }
             console.log(row);
@@ -74,8 +103,8 @@ export const deleteTableEntry = async (Tname, id) => {
 }
 
 
-export const AddAssurance = async (matricule, nom, dateAssurance, dureeEnMois, prixAssurance) => {
-    (await db).runAsync('INSERT INTO assurance (matricule, nom, dateAssurance, dureeEnMois, prixAssurance) VALUES (?, ?, ?, ?, ?)', [matricule, nom, dateAssurance, dureeEnMois, prixAssurance]);
+export const AddAssurance = async (matricule, nom, dateAssurance, dateFin, prixAssurance) => {
+    (await db).runAsync('INSERT INTO assurance (matricule, nom, dateAssurance, dateFin, prixAssurance) VALUES (?, ?, ?, ?, ?)', [matricule, nom, dateAssurance, dateFin, prixAssurance]);
 }
 
 export const AddEntretienKilometre = async (matricule, nom, kilometrageOld, limiteKilometre) => {
@@ -102,25 +131,30 @@ export const AddKilometrage = async (matricule, date, kilometrageOld, kilometrag
 // the next part here is used to manage and see database contents 
 //cause it is hard to get the sqlite file and modify it using the emulator 
 
+//trigger script for future reference
+// CREATE TRIGGER IF NOT EXISTS addKilometre
+// AFTER INSERT ON kilometrage
+// BEGIN
+//     UPDATE voiture
+//     SET kilometrageTotale = kilometrageTotale + NEW.kilometrageAjouter
+//     WHERE matricule = NEW.matricule;
+// END;
+
 export const script = async () => {
     try {
         (await db).execAsync(`
-            CREATE TABLE kilometrage (
+            DROP TABLE IF EXISTS assurance;
+CREATE TABLE assurance (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    matricule TEXT NOT NULL,
-    date TEXT NOT NULL,
-    kilometrageAjouter INTEGER NOT NULL,
-    kilometrageOld INTEGER NOT NULL,
+    matricule VARCHAR(20),
+    nom TEXT,
+    dateAssurance DATE,
+    prixAssurance INTEGER,
+    dateFin DATE,
     FOREIGN KEY (matricule) REFERENCES voiture(matricule)
 );
-CREATE TRIGGER IF NOT EXISTS addKilometre
-AFTER INSERT ON kilometrage
-BEGIN
-    UPDATE voiture
-    SET kilometrageTotale = kilometrageTotale + NEW.kilometrageAjouter
-    WHERE matricule = NEW.matricule;
-END;
         `);
+        console.log("script done");
     }
     catch (error) {
         console.error("Failed :", error);
@@ -130,7 +164,7 @@ END;
 export const getColumns = async () => {
     const fetchedEntries = [];
     console.log('taburu  \n');
-    for await (const row of (await db).getEachAsync('PRAGMA table_info(kilometrage)')) {
+    for await (const row of (await db).getEachAsync('PRAGMA table_info(assurance)')) {
 
         fetchedEntries.push({
             name: row.name

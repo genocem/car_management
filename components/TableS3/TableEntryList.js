@@ -16,6 +16,8 @@ export default function TableEntryList({ selectedItems, toggleItemSelection, han
         console.log(item),
         <TableEntry
             name={item.name}
+            name2={item.name2}
+            name3={item.name3 ?? null}
             isSelected={selectedItems.includes(item.id)}
             onPress={() => handlePress(item.id)}
             onLongPress={() => toggleItemSelection(item.id)}
