@@ -2,12 +2,85 @@ import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabaseAsync('carDB');
 
+const currency = "DT";
+
+
+export const initDB = async () => {
+    try {
+        (await db).execAsync(`
+        CREATE TABLE IF NOT EXISTS voiture (
+            matricule VARCHAR(20) PRIMARY KEY,
+            nomProprietere TEXT,
+            kilometrageTotale INTEGER,
+            deletionDate DATE DEFAULT NULL
+        );
+        CREATE TABLE IF NOT EXISTS assurance (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            matricule VARCHAR(20),
+            nom TEXT,
+            dateAssurance DATE,
+            prixAssurance INTEGER,
+            dateFin DATE,
+            FOREIGN KEY (matricule) REFERENCES voiture(matricule) on delete cascade
+        );
+        CREATE TABLE IF NOT EXISTS entretienKilometre (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            matricule VARCHAR(20),
+            nom TEXT,
+            kilometrageOld INTEGER,
+            limiteKilometre INTEGER,
+            FOREIGN KEY (matricule) REFERENCES voiture(matricule) on delete cascade
+        );
+        CREATE TABLE IF NOT EXISTS entretienDate (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            matricule VARCHAR(20),
+            nom TEXT,
+            date1 DATE,
+            date2 DATE,
+            FOREIGN KEY (matricule) REFERENCES voiture(matricule) on delete cascade
+        );
+        CREATE TABLE IF NOT EXISTS consommationGazoile (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            quantiteCarburant INTEGER,
+            date DATE,
+            kilometrage INTEGER,
+            matricule VARCHAR(20),
+            prix INTEGER,
+            FOREIGN KEY (matricule) REFERENCES voiture(matricule) on delete cascade
+        );
+        CREATE TABLE IF NOT EXISTS kilometrage (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            matricule VARCHAR(20),
+            date DATE,
+            kilometrageOld INTEGER,
+            kilometrageAjouter INTEGER,
+            FOREIGN KEY (matricule) REFERENCES voiture(matricule) on delete cascade
+        );
+        CREATE TRIGGER IF NOT EXISTS addKilometre
+        AFTER INSERT ON kilometrage
+        BEGIN
+            UPDATE voiture
+            SET kilometrageTotale = kilometrageTotale + NEW.kilometrageAjouter
+            WHERE matricule = NEW.matricule;
+        END;
+        `);
+        console.log("Database initialised");
+    } catch (error) {
+        console.error("Failed to initialise database:", error);
+    }
+}
+
+
+
+
+
+
 // functions to manipulate the car table
-const currency= "DT"; 
-
-
 
 export const getVoitures = async (setEntries) => {
+    if (!db || typeof db.getEachAsync !== 'function') {
+        initDB();
+    }
     const fetchedEntries = [];
     for await (const row of (await db).getEachAsync('SELECT * FROM voiture')) {
         fetchedEntries.push({
@@ -18,6 +91,35 @@ export const getVoitures = async (setEntries) => {
     }
     setEntries(fetchedEntries);
 }
+
+export const softDeleteCarEntry = async (matricule) => {
+    try {
+        (await db).runAsync('UPDATE voiture SET deletionDate =  DATE() WHERE matricule = ? AND deletionDate IS NULL',
+            [matricule]
+        );
+    } catch (error) {
+        console.error("Failed to delete entry:", error);
+    }
+}
+export const restoreCarEntry = async (matricule) => {
+    try {
+        (await db).runAsync('UPDATE voiture SET deletionDate = NULL WHERE matricule = ? AND deletionDate IS NOT NULL',
+            [matricule]
+        );
+    } catch (error) {
+        console.error("Failed to delete entry:", error);
+    }
+}
+export const deleteIfSoftDeleted30Days = async (matricule) => {
+    try {
+        (await db).runAsync('DELETE FROM voiture WHERE matricule = ? AND deletionDate IS NOT NULL AND deletionDate < DATE() - 30',
+            [matricule]
+        );
+    } catch (error) {
+        console.error("Failed to delete entry:", error);
+    }
+}
+
 export const deleteCarEntry = async (matricule) => {
     try {
         (await db).runAsync('DELETE FROM voiture WHERE matricule = ?', [matricule]);
@@ -44,15 +146,15 @@ export const getTable = async (setEntries, Tname, matricule) => {
                 fetchedEntries.push({
                     id: row.id,
                     name: row.date,
-                    name2: "quantite carburant: " +row.quantiteCarburant,
-                    name3: "prix: " +row.prix+" "+currency,
+                    name2: "quantite carburant: " + row.quantiteCarburant,
+                    name3: "prix: " + row.prix + " " + currency,
                 });
             }
             else if (Tname === 'kilometrage') {
                 fetchedEntries.push({
                     id: row.id,
                     name: row.date,
-                    name2: "kilometrage ajouter: "+ row.kilometrageAjouter,
+                    name2: "kilometrage ajouter: " + row.kilometrageAjouter,
                 });
             }
             else if (Tname === 'entretienKilometre') {
