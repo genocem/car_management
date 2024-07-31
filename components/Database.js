@@ -70,17 +70,16 @@ export const initDB = async () => {
     }
 }
 
-
-
-
-
-
 // functions to manipulate the car table
 
 export const getVoitures = async (setEntries) => {
-    if (!db || typeof db.getEachAsync !== 'function') {
+
+    const fetchedtables = await (await db).getFirstAsync('SELECT name FROM sqlite_master WHERE type="table"');
+
+    if (!fetchedtables) {
         initDB();
     }
+    
     const fetchedEntries = [];
     for await (const row of (await db).getEachAsync('SELECT * FROM voiture')) {
         fetchedEntries.push({
