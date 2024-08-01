@@ -93,7 +93,7 @@ export default function AddConsommationGazoile({ navigation, route }) {
           onChangeText={setPrix}
         />
       </View>
-      <Button title="Save" onPress={setSubmission} />
+      <Button title="Enregistrer" onPress={setSubmission} />
     </View>
   );
 }

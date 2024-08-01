@@ -77,7 +77,7 @@ export default function AddKilometrage({ navigation, route }) {
         />
       </View>
 
-      <Button title="Save" onPress={setSubmission} />
+      <Button title="Enregistrer" onPress={setSubmission} />
     </View>
   );
 }

@@ -54,7 +54,7 @@ useEffect(() => {
           onChangeText={setLimiteKilometre}
         />
       </View>
-      <Button title="Save" onPress={setSubmission} />
+      <Button title="Enregistrer" onPress={setSubmission} />
     </View>
   );
 }

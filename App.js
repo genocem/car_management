@@ -19,18 +19,28 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="AddCar" component={AddCar} />
-        <Stack.Screen name="ManageCar" component={ManageCar} />
-        <Stack.Screen name="ManageTable" component={ManageTable} 
-        options={({ route }) => ({ title: route.params?.screenTitle || 'Default Title' })} />
-        <Stack.Screen name="AddAssurance" component={AddAssurance} />
-        <Stack.Screen name="AddEntretienKilometre" component={AddEntretienKilometre} />
-        <Stack.Screen name="AddEntretienDate" component={AddEntretienDate} />
-        <Stack.Screen name="AddConsommationGazoile" component={AddConsommationGazoile} />
-        <Stack.Screen name="AddKilometrage" component={AddKilometrage} />
-          
+      <Stack.Screen name="Home" component={HomeScreen} options={() => ({ title: "Accueil" })} />
+<Stack.Screen name="AddCar" component={AddCar} options={() => ({ title: "Ajouter voiture" })} />
+<Stack.Screen name="ManageCar" component={ManageCar} options={() => ({ title: "Gérer Voiture" })} />
+<Stack.Screen name="ManageTable" component={ManageTable} options={({ route }) => ({ title: route.params?.screenTitle || "Gérer Table" })} />
+<Stack.Screen name="AddAssurance" component={AddAssurance} options={() => ({ title: "Ajouter Assurance" })} />
+<Stack.Screen name="AddEntretienKilometre" component={AddEntretienKilometre} options={() => ({ title: "Ajouter Entretien Kilometre" })} />
+<Stack.Screen name="AddEntretienDate" component={AddEntretienDate} options={() => ({ title: "Ajouter Entretien Date" })} />
+<Stack.Screen name="AddConsommationGazoile" component={AddConsommationGazoile} options={() => ({ title: "Ajouter Consommation Gazoile" })} />
+<Stack.Screen name="AddKilometrage" component={AddKilometrage} options={() => ({ title: "Ajouter Kilométrage" })} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+{/* <Stack.Screen name="" component={HomeScreen} />
+<Stack.Screen name="Ajouter voiture" component={AddCar} />
+<Stack.Screen name="Gerer Voiture" component={ManageCar} />
+<Stack.Screen name="Gerer Table" component={ManageTable} 
+options={({ route }) => ({ title: route.params?.screenTitle || 'Default Title' })} />
+<Stack.Screen name="Ajouter Assurance" component={AddAssurance} />
+<Stack.Screen name="Ajouter Entretien Kilometre" component={AddEntretienKilometre} />
+<Stack.Screen name="Ajouter Entretien Date" component={AddEntretienDate} />
+<Stack.Screen name="Ajouter Consommation Gazoile" component={AddConsommationGazoile} />
+<Stack.Screen name="Ajouter Kilometrage" component={AddKilometrage} />
+   */}

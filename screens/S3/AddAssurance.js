@@ -111,7 +111,7 @@ export default function AddAssurance({ navigation, route }) {
       </View>
 
       <View style={styles.formElem}>
-        <Button title="Save" onPress={setSubmission} />
+        <Button title="Enregistrer" onPress={setSubmission} />
       </View>
     </ScrollView>
   );

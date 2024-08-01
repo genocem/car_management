@@ -95,7 +95,7 @@ export default function AddEntretienDate({ navigation, route }) {
       )}
 
       <View style={styles.formElem}>
-        <Button title="Save" onPress={setSubmission} />
+        <Button title="Enregistrer" onPress={setSubmission} />
       </View>
     </ScrollView>
   );

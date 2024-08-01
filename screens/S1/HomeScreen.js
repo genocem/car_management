@@ -43,7 +43,7 @@ export default function HomeScreen({ navigation }) {
 
       {selectedItems.length > 0 && (
         <View style={styles.deleteButtonContainer}>
-          <Button title="Delete" onPress={handleDelete} color="red" />
+          <Button title="Supprimer" onPress={handleDelete} color="red" />
         </View>
       )}
 

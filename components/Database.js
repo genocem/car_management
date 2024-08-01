@@ -81,7 +81,7 @@ export const getVoitures = async (setEntries) => {
     }
     
     const fetchedEntries = [];
-    for await (const row of (await db).getEachAsync('SELECT * FROM voiture')) {
+    for await (const row of (await db).getEachAsync('SELECT * FROM voiture where deletionDate is null')) {
         fetchedEntries.push({
             matricule: row.matricule,
             nomProprietere: row.nomProprietere,
@@ -129,6 +129,11 @@ export const deleteCarEntry = async (matricule) => {
 }
 
 export const AddCarDB = async (nomProprietere, matricule, kilometrageTotale) => {
+    const CarExist = await (await db).getFirstAsync('SELECT nomProprietere FROM voiture WHERE matricule=?', [matricule]);
+    if (CarExist) {
+        console.log("Car already exist");
+        
+    }
     (await db).runAsync('INSERT INTO voiture (nomProprietere, matricule, kilometrageTotale) VALUES (?, ?, ?)', [nomProprietere, matricule, kilometrageTotale]);
 
 };
