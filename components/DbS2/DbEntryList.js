@@ -5,11 +5,12 @@ import DbEntry from './DbEntry';
 
 export default function DbEntryList({handlePress}) {
   const entries= [
+    {"name": "kilometrage", "shownName": "Kilometrage"},
     {"name": "consommationGazoile", "shownName": "Consommation de Gazoile"}
     ,{"name": "assurance", "shownName": "Assurance"}
     ,{"name": "entretienDate", "shownName": "Entretien Date"}
     ,{"name": "entretienKilometre", "shownName": "Entretien Kilometrique"}
-  ,{"name": "kilometrage", "shownName": "Kilometrage"}];
+  ];
 
   const renderItem = useCallback(({ item }) => (
     <DbEntry

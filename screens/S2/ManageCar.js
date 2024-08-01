@@ -11,11 +11,11 @@ export default function ManageCar({ navigation,route }) {
   
     
   const handlePress = useCallback((Tname) => {
-    var title = Tname;
-    if (title == "consommationGazoile"){title="Consommation Gazoile"}
-    else if (title == "entretienKilometre"){title="Entretien Kilometrage"}
-    else if (title == "entretienDate"){title="Entretien Date"}
-    else if (title == "kilometrage"){title="Kilometrage"}
+    var title;
+    if (Tname == "consommationGazoile"){title="Consommation Gazoile"}
+    else if (Tname == "entretienKilometre"){title="Entretien Kilometrage"}
+    else if (Tname == "entretienDate"){title="Entretien Date"}
+    else if (Tname == "kilometrage"){title="Kilometrage"}
     else {title="Assurance"}
     navigation.navigate('ManageTable', { matricule,Tname, screenTitle: title });
   });
