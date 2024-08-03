@@ -79,7 +79,7 @@ export const getVoitures = async (setEntries) => {
     if (!fetchedtables) {
         initDB();
     }
-    
+
     const fetchedEntries = [];
     for await (const row of (await db).getEachAsync('SELECT * FROM voiture where deletionDate is null')) {
         fetchedEntries.push({
@@ -109,11 +109,9 @@ export const restoreCarEntry = async (matricule) => {
         console.error("Failed to delete entry:", error);
     }
 }
-export const deleteIfSoftDeleted30Days = async (matricule) => {
+export const deleteIfSoftDeleted30Days = async () => {
     try {
-        (await db).runAsync('DELETE FROM voiture WHERE matricule = ? AND deletionDate IS NOT NULL AND deletionDate < DATE() - 30',
-            [matricule]
-        );
+        (await db).runAsync('DELETE FROM voiture WHERE deletionDate IS NOT NULL AND deletionDate < DATE() - 30');
     } catch (error) {
         console.error("Failed to delete entry:", error);
     }
@@ -124,7 +122,7 @@ export const deleteCarEntry = async (matricule) => {
         (await db).runAsync('DELETE FROM voiture WHERE matricule = ?', [matricule]);
     } catch (error) {
         console.error("Failed to delete entry:", error);
-
+        restoreCarEntry(matricule);
     }
 }
 
@@ -132,10 +130,11 @@ export const AddCarDB = async (nomProprietere, matricule, kilometrageTotale) => 
     const CarExist = await (await db).getFirstAsync('SELECT nomProprietere FROM voiture WHERE matricule=?', [matricule]);
     if (CarExist) {
         console.log("Car already exist");
-        
+        restoreCarEntry(matricule);
     }
-    (await db).runAsync('INSERT INTO voiture (nomProprietere, matricule, kilometrageTotale) VALUES (?, ?, ?)', [nomProprietere, matricule, kilometrageTotale]);
-
+    else {
+        (await db).runAsync('INSERT INTO voiture (nomProprietere, matricule, kilometrageTotale) VALUES (?, ?, ?)', [nomProprietere, matricule, kilometrageTotale]);
+    }
 };
 // functions to manipulate the rest of the tables
 

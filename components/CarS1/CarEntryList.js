@@ -20,8 +20,8 @@ export default function CarEntryList({ selectedItems, toggleItemSelection, handl
   // };
   useFocusEffect(
     useCallback(() => {
-      // showPrompt();
       data.getVoitures(setEntries);
+      data.deleteIfSoftDeleted30Days();
     }, [refreshKey])
   );
   // useFocusEffect(

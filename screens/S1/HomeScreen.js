@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import CarEntryList from '../../components/CarS1/CarEntryList';
 import Button from '../../components/Button';
 import React, { useState, useCallback } from 'react';
@@ -30,13 +30,33 @@ export default function HomeScreen({ navigation }) {
 
 
   const handleDelete = async () => {
-    for (const matricule of selectedItems) {
-      await data.deleteCarEntry(matricule);
-    }
-    setSelectedItems([]);
-    setRefreshKey(prevKey => prevKey + 1);
-  };
+    Alert.alert(
+      "Supprimer",
+      "Etes-vous sûr de vouloir supprimer ?",
+      [
+        {
+          text: "Oui", onPress: async () => {
+            try {
+              for (const matricule of selectedItems) {
+                await data.softDeleteCarEntry(matricule);
+              }
+              setSelectedItems([]);
+              setRefreshKey(prevKey => prevKey + 1);
+            } catch (error) {
+              console.error("Error deleting cars:", error);
+              // You might want to show an error message to the user here
+            }
+          }
+        },
+        { text: "Non", onPress: () => {    
+          setSelectedItems([]);
+          setRefreshKey(prevKey => prevKey + 1);
+        }, style: 'cancel'},
+      ]
+    );
 
+
+  };
 
   return (
     <View style={styles.container}>
@@ -48,11 +68,11 @@ export default function HomeScreen({ navigation }) {
       )}
 
       <View style={styles.ListContainer}>
-        <CarEntryList selectedItems={selectedItems} 
-        toggleItemSelection={toggleItemSelection}
-        handlePress={handlePress}
-        refreshKey={refreshKey}
-          />
+        <CarEntryList selectedItems={selectedItems}
+          toggleItemSelection={toggleItemSelection}
+          handlePress={handlePress}
+          refreshKey={refreshKey}
+        />
       </View>
 
       <View style={styles.footerContainer} >

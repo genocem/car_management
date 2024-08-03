@@ -43,7 +43,7 @@ export default function AddCar() {
       <View style={styles.formElem}>
         <Text style={styles.text}>KilometrageTotal</Text>
         <TextInput
-          style={styles.textIn} placeholder='KilometrageTotale ' onChangeText={setKilometrage} />
+          style={styles.textIn} placeholder='KilometrageTotale ' keyboardType='numeric' onChangeText={setKilometrage} />
       </View>
       <Button title="Enregistrer" onPress={setSubmission} />
     </View>
