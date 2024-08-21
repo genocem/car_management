@@ -33,14 +33,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-{/* <Stack.Screen name="" component={HomeScreen} />
-<Stack.Screen name="Ajouter voiture" component={AddCar} />
-<Stack.Screen name="Gerer Voiture" component={ManageCar} />
-<Stack.Screen name="Gerer Table" component={ManageTable} 
-options={({ route }) => ({ title: route.params?.screenTitle || 'Default Title' })} />
-<Stack.Screen name="Ajouter Assurance" component={AddAssurance} />
-<Stack.Screen name="Ajouter Entretien Kilometre" component={AddEntretienKilometre} />
-<Stack.Screen name="Ajouter Entretien Date" component={AddEntretienDate} />
-<Stack.Screen name="Ajouter Consommation Gazoile" component={AddConsommationGazoile} />
-<Stack.Screen name="Ajouter Kilometrage" component={AddKilometrage} />
-   */}
